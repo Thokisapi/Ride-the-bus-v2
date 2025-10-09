@@ -3,20 +3,17 @@ const http = require('http');
 const path = require('path');
 const { Server } = require('socket.io');
 const mongoose = require('mongoose');
-
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
-
-// Serve static files
+const registerroute = require('./routes/register')
 app.use(express.static(path.join(__dirname, 'public')));
 
-// EJS setup
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'public/views'));
 
 
-// Routes
 app.get('/', (req, res) => {
   res.render('index', { title: 'Ride the Bus' });
 });
@@ -26,7 +23,7 @@ app.get('/lobby', (req, res) => {
 })
 
 app.get('/register',(req, res) =>{
-    res.render('register', {title: 'Register'})
+    res.render('register',  registerroute,{title: 'Register'})
 })
 app.get('/login',(req, res) =>{
     res.render('login', {title: 'Login-page'})
@@ -49,8 +46,7 @@ io.on('connection', (socket) => {
 
 
 mongoose.connect('mongodb://127.0.0.1:27017/ride-the-bus', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
+  
 })
 .then(() => console.log('✅ MongoDB connected'))
 .catch(err => console.error('❌ MongoDB connection error:', err));

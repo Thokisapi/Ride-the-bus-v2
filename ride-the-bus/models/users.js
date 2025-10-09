@@ -24,7 +24,7 @@ const userTable = new Schema({
 
 })
 
-const roleTable = new Schema({
-   role 
-})
+// const roleTable = new Schema({
+//    role 
+// })
 module.exports = mongoose.model('User', userTable)
