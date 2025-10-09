@@ -1,12 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./dist/output.css" rel="stylesheet">
-    <title><%= title %></title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link href="/dist/output.css" rel="stylesheet" />
 </head>
-<body>
-    <h1 class="text-4xl font-bold"><%= title %></h1>
+<body class="relative bg-gradient-to-b from-[#0a1a2f] to-[#001020] text-white">
+
+
+  <%- include("partials/bubble") %>
+
+  <main class="relative z-10 flex flex-col items-center justify-center min-h-screen">
+    <h1 class="text-4xl font-bold mb-2">Ride the Bus</h1>
+    <p class="mb-4">Welcome, Train</p>
+    <button class="bg-cyan-500 hover:bg-cyan-600 px-6 py-2 rounded-xl shadow-lg">Lobby list</button>
+    <button class="bg-cyan-500 hover:bg-cyan-600 px-6 py-2 rounded-xl shadow-lg mt-2">Game rules</button>
+  </main>
+
 </body>
 </html>

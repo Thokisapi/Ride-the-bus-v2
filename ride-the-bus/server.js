@@ -2,6 +2,7 @@ const express = require('express');
 const http = require('http');
 const path = require('path');
 const { Server } = require('socket.io');
+const mongoose = require('mongoose');
 
 const app = express();
 const server = http.createServer(app);
@@ -31,11 +32,8 @@ app.get('/login',(req, res) =>{
     res.render('login', {title: 'Login-page'})
 })
 
-app.get('/api/status', (req, res) => {
-  res.json({ status: 'ok', message: 'Server is ready!' });
-});
 
-// WebSockets
+
 io.on('connection', (socket) => {
   console.log('A user connected:', socket.id);
 
@@ -48,6 +46,16 @@ io.on('connection', (socket) => {
   });
 });
 
-// Start server
+
+
+mongoose.connect('mongodb://127.0.0.1:27017/ride-the-bus', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => console.log('✅ MongoDB connected'))
+.catch(err => console.error('❌ MongoDB connection error:', err));
+
+
+
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
