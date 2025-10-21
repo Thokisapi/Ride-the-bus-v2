@@ -17,10 +17,17 @@ const duplicate = await User.findOne({ username }).exec();
       firstname: firstname,
       password: hashedpassword,
       email: email,
-    });
+    }).save();
     console.log(result);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
-module.exports = { createUser };
+
+const allUsers = async (req, res) =>{
+  const users = await User.find()
+  console.log(users);
+};
+
+
+module.exports = { createUser, allUsers };

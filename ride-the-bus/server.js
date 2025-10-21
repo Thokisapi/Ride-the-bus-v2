@@ -6,13 +6,20 @@ const mongoose = require('mongoose');
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
-const registerroute = require('./routes/register')
+
+const registerroute = require('./routes/register');
+const loginUser = require('./routes/loginuser');
+
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'public/views'));
 
+app.use('/register', registerroute); 
+app.use('/login', loginUser);
 
 app.get('/', (req, res) => {
   res.render('index', { title: 'Ride the Bus' });
@@ -22,13 +29,13 @@ app.get('/lobby', (req, res) => {
     res.render('lobby',{title: 'lobby'});
 })
 
-app.get('/register',(req, res) =>{
-    res.render('register',  registerroute,{title: 'Register'})
-})
+
+app.get('/register', (req, res) => {
+  res.render('register', { title: 'Register' });
+});
 app.get('/login',(req, res) =>{
     res.render('login', {title: 'Login-page'})
 })
-
 
 
 io.on('connection', (socket) => {
@@ -48,8 +55,8 @@ io.on('connection', (socket) => {
 mongoose.connect('mongodb://127.0.0.1:27017/ride-the-bus', {
   
 })
-.then(() => console.log('✅ MongoDB connected'))
-.catch(err => console.error('❌ MongoDB connection error:', err));
+.then(() => console.log('MongoDB connected'))
+.catch(err => console.error('MongoDB connection error:', err));
 
 
 
