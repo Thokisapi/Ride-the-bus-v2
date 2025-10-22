@@ -1,4 +1,5 @@
 const User = require("../models/users");
+const Role = require('../models/roles');
 const bcrypt = require("bcrypt");
 
 const createUser = async (req, res) => {
@@ -8,6 +9,7 @@ const createUser = async (req, res) => {
     return res.status(400).json({ message: 'Please enter a username, firstname, email, and password' });
   }
 
+const userRole = await Role.findOne({ name: 'user' }); 
 const duplicate = await User.findOne({ username }).exec();
   if (duplicate) return res.status(409).json({ message: 'Username already exists' });
   try {
@@ -17,11 +19,13 @@ const duplicate = await User.findOne({ username }).exec();
       firstname: firstname,
       password: hashedpassword,
       email: email,
+      role: userRole._id,
     }).save();
     console.log(result);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+  res.redirect('/lobby')
 };
 
 const allUsers = async (req, res) =>{

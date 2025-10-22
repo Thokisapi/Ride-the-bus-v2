@@ -29,6 +29,9 @@ app.get('/lobby', (req, res) => {
     res.render('lobby',{title: 'lobby'});
 })
 
+app.get('/admin', (req, res) => {
+    res.render('admin',{title: 'admin'});
+})
 
 app.get('/register', (req, res) => {
   res.render('register', { title: 'Register' });
