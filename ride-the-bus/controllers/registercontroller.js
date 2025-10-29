@@ -25,7 +25,7 @@ const duplicate = await User.findOne({ username }).exec();
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-  res.redirect('/lobby')
+  res.redirect('/login')
 };
 
 const allUsers = async (req, res) =>{
