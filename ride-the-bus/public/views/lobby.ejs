@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title><%= title %></title>
+  <title>
+    <%= title %>
+  </title>
   <link href="/dist/output.css" rel="stylesheet" />
 </head>
+
 <body class="min-h-screen bg-gray-600">
-<nav class="flex items-center justify-between p-4">
+  <nav class="flex items-center justify-between p-4">
     <div class="flex gap-3">
       <a href="/"
         class="px-6 py-2 bg-white text-gray-800 rounded-full font-medium hover:bg-gray-100 transition shadow-md">
@@ -34,13 +38,28 @@
     </div>
   </nav>
 
-  <div id="createRoomBtn" class="px-24 py-4 bg-purple-600 text-white text-lg font-semibold rounded-lg hover:bg-purple-700 transition shadow-lg text-center">Create lobby</div>
+  <div id="container-games"
+    class="flex flex-col h-150 w-full max-w-3xl mx-auto mt-20 bg-gradient-to-br from-gray-800 to-gray-700 rounded-xl shadow-2xl p-8 space-y-8 border border-gray-600/30 backdrop-blur-sm">
+    <div class="relative flex items-center">
+      <h2 class="absolute left-1/2 -translate-x-1/2 text-3xl font-bold tracking-wide text-white">
+        Available Rooms
+      </h2>
+      <button id="createRoomBtn"
+        class="ml-auto px-8 py-3 bg-gradient-to-r from-purple-600 to-purple-700 text-white text-lg font-semibold rounded-xl hover:from-purple-700 hover:to-purple-800 transition-all duration-300 shadow-lg hover:shadow-purple-500/30 transform hover:scale-105">
+        Create Lobby
+      </button>
+    </div>
 
-  <div class="p-6">
-    <h2 class="text-white text-2xl mb-4">Available Rooms</h2>
-    <div id="roomList" class="space-y-2 text-white"></div>
-</div>
+    <div id="roomList" class="flex flex-col gap-3 h-120 text-white overflow-y-auto max-h-120 p-2 border border-gray-700 rounded-md bg-gray-900/40
+      [&::-webkit-scrollbar]:w-2
+      [&::-webkit-scrollbar-thumb]:rounded-full
+      [&::-webkit-scrollbar-thumb]:bg-gray-500
+      [&::-webkit-scrollbar-track]:bg-gray-700">
+    </div>
+  </div>
+
 </body>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/javascript/game.js"></script>
+
 </html>

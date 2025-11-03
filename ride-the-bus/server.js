@@ -7,21 +7,23 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 const session = require("express-session");
+const sharedSession = require('express-socket.io-session');
 
-app.use(
-  session({
-    secret: "supergeheim",
-    resave: false,
-    saveUninitialized: false,
-  })
-);
+const sessionMiddleware = session({
+  secret: "supergeheim",
+  resave: false,
+  saveUninitialized: false,
+});
+
+app.use(sessionMiddleware);
+
+io.use(sharedSession(sessionMiddleware, { autoSave: true }));
 
 const registerroute = require("./routes/register");
 const loginUser = require("./routes/loginuser");
 const gameHandler = require('./sockets/gameHandler');
 
 gameHandler(io);
-
 
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -55,6 +57,11 @@ app.get("/register", (req, res) => {
 app.get("/login", (req, res) => {
   res.render("login", { title: "Login-page" });
 });
+
+app.get("/game", (req, res) => {
+  const user = req.session.user || null
+  res.render('/game',{title: "Game", user} )
+})
 
 mongoose
   .connect("mongodb://127.0.0.1:27017/ride-the-bus", {})

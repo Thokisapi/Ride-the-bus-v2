@@ -18,6 +18,7 @@ const login = async (req, res) => {
     username: user.username,
     role: user.role.name,
   };
+  
   res.redirect("/");
 };
 
